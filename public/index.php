@@ -1,25 +1,6 @@
  <?php include '../includes/db.php'; ?>
 
- <?php 
-     $query = "SELECT * FROM taarten";
-     $select__taarten = mysqli_query($connection,$query);
 
-     $title = [];
-     $img = [];
-     $text = [];
-
-     while($row = mysqli_fetch_assoc($select__taarten)) {
-      $title[] = $row["title"];
-      $img[] = $row["img"];
-      $text[] = $row["text"];
-     }
-     
-
-
- 
- 
- 
- ?>
 
  <!DOCTYPE html>
  <html lang="en">
@@ -36,21 +17,25 @@
 
    <section class="foods">
 
-   <?php for($i = 0; $i < 6; $i++){
-      ?>
-   <article class="food">
-      <h2 class="food__h2"><?php echo $title[$i];?></h2>
-      <img src="<?php echo $img[$i];?>" alt="" class="food__img">
-      <p class="food__text"><?php echo $text[$i];?></p>
-   </article>
-   <?php
-   }
-   ?>
+   <?php 
+     $query = "SELECT * FROM taarten";
+     $select__taarten = mysqli_query($connection,$query);
+
+     while($taart = mysqli_fetch_assoc($select__taarten)) : ?>
       
-
-
+   <article class="food">
+      <h2 class="food__h2"><?php echo $taart['title'];?></h2>
+      <img src="<?php echo $taart['img'];?>" alt="" class="food__img">
+      <p class="food__text"><?php echo $taart['text'];?></p>
+      <a href="/single.php?id=<?php echo $taart['id']; ?>"><?php  ?>klik</a>
+   </article>
+   
+   <?php endwhile; ?>
 
    </section>
+
+
+
 
 
 
